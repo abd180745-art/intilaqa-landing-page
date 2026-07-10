@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'motion/react'
-import { WhatsappLogo, Globe, Check } from '@phosphor-icons/react'
+import { ArrowsOutSimple } from '@phosphor-icons/react'
 import { Reveal } from './reveal'
 import { WhatsappWindow } from './whatsapp-window'
 import { WidgetWindow } from './widget-window'
@@ -28,57 +28,48 @@ function SectionHeading({
   )
 }
 
-function ShowcaseColumn({
-  icon: Icon,
-  tag,
+function ShowcaseCard({
   title,
   description,
-  features,
   children,
   delay,
 }: {
-  icon: typeof WhatsappLogo
-  tag: string
   title: string
   description: string
-  features: string[]
   children: React.ReactNode
   delay: number
 }) {
   return (
-    <Reveal delay={delay}>
-      <div className="flex h-full flex-col">
-        <div className="relative">
-          <div className="pointer-events-none absolute inset-x-6 -bottom-6 top-10 rounded-[2rem] bg-amber/8 blur-2xl" />
-          <motion.div
-            whileHover={{ y: -6 }}
-            transition={{ type: 'spring', stiffness: 250, damping: 22 }}
-            className="relative"
+    <Reveal delay={delay} className="h-full">
+      <motion.article
+        whileHover={{ y: -4 }}
+        transition={{ type: 'spring', stiffness: 250, damping: 24 }}
+        className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[0_1px_2px_rgba(0,0,0,0.06),0_24px_60px_-30px_rgba(0,0,0,0.25)]"
+      >
+        {/* Card header — Stripe style */}
+        <div className="flex items-start justify-between gap-4 p-6 pb-4 sm:p-7 sm:pb-4">
+          <div className="min-w-0">
+            <h3 className="text-pretty text-xl font-semibold leading-snug tracking-tight sm:text-2xl">
+              {title}
+            </h3>
+            <p className="mt-2 text-pretty text-sm leading-relaxed text-muted-foreground">
+              {description}
+            </p>
+          </div>
+          <span
+            aria-hidden="true"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-amber transition-colors"
           >
-            {children}
-          </motion.div>
+            <ArrowsOutSimple weight="bold" className="h-4 w-4" />
+          </span>
         </div>
 
-        <div className="mt-8 px-1">
-          <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-3 py-1 text-xs font-medium text-silver">
-            <Icon weight="fill" className="h-3.5 w-3.5 text-amber" /> {tag}
-          </span>
-          <h3 className="mt-4 text-2xl font-semibold">{title}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            {description}
-          </p>
-          <ul className="mt-5 space-y-2.5">
-            {features.map((f) => (
-              <li key={f} className="flex items-center gap-2.5 text-sm text-foreground">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber/15">
-                  <Check weight="bold" className="h-3 w-3 text-amber" />
-                </span>
-                {f}
-              </li>
-            ))}
-          </ul>
+        {/* Live demo */}
+        <div className="relative flex min-h-[420px] flex-1 flex-col px-4 pb-4 sm:px-5 sm:pb-5">
+          <div className="pointer-events-none absolute inset-x-8 bottom-2 top-8 rounded-[2rem] bg-amber/8 blur-2xl" />
+          <div className="relative flex h-full flex-1 flex-col">{children}</div>
         </div>
-      </div>
+      </motion.article>
     </Reveal>
   )
 }
@@ -94,36 +85,22 @@ export function DualShowcase() {
           subtitle="نفس المحرك الذكي يشغّل مساعد واتساب يرد على عملائك مباشرة، وودجت أنيق تدمجه في موقعك بسطر واحد."
         />
 
-        <div className="mt-16 grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
-          <ShowcaseColumn
-            icon={WhatsappLogo}
-            tag="واتساب"
-            title="مساعد واتساب آلي"
-            description="يرد على استفسارات عملائك على واتساب على مدار الساعة، بالعربي والإنجليزي، ومربوط مباشرة بقاعدة معرفتك."
-            features={[
-              'ردود فورية ذكية بلهجة عملائك',
-              'مربوط بقاعدة معرفة جامعاتك ومنتجاتك',
-              'تسليم للموظف البشري عند الحاجة',
-            ]}
+        <div className="mt-16 grid items-stretch gap-6 lg:grid-cols-2 lg:gap-8">
+          <ShowcaseCard
+            title="أتمتة محادثات واتساب بالكامل"
+            description="مساعد آلي يرد على عملائك على واتساب على مدار الساعة، مربوط مباشرة بقاعدة معرفتك."
             delay={0.05}
           >
             <WhatsappWindow />
-          </ShowcaseColumn>
+          </ShowcaseCard>
 
-          <ShowcaseColumn
-            icon={Globe}
-            tag="ودجت الموقع"
-            title="ودجت دردشة لموقعك"
-            description="ودجت زجاجي أنيق يطابق هوية علامتك التجارية، يبث الردود لحظياً، ويحوّل زوار موقعك إلى عملاء."
-            features={[
-              'تركيب بسطر واحد على أي موقع',
-              'تخصيص كامل للألوان والشعار',
-              'بث الردود لحظياً بأقل من 200 مللي ثانية',
-            ]}
+          <ShowcaseCard
+            title="ودجت دردشة يعيش داخل موقعك"
+            description="تركيب بسطر واحد، تخصيص كامل لهويتك، وبث للردود لحظياً يحوّل الزوار إلى عملاء."
             delay={0.12}
           >
             <WidgetWindow />
-          </ShowcaseColumn>
+          </ShowcaseCard>
         </div>
       </div>
     </section>

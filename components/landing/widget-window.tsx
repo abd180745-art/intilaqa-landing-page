@@ -14,9 +14,9 @@ const chat = [
 
 export function WidgetWindow() {
   return (
-    <div className="relative mx-auto w-full">
+    <div className="relative flex h-full w-full flex-col">
       {/* Browser frame */}
-      <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-[0_40px_90px_-30px_rgba(0,0,0,0.35)]">
+      <div className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm">
         {/* Browser chrome */}
         <div className="flex items-center gap-3 border-b border-border bg-secondary px-4 py-3">
           <div className="flex items-center gap-1.5">
@@ -32,7 +32,7 @@ export function WidgetWindow() {
 
         {/* Faux website canvas */}
         <div
-          className="relative h-[440px] overflow-hidden"
+          className="relative min-h-[380px] flex-1 overflow-hidden"
           style={{
             backgroundImage:
               'radial-gradient(120% 80% at 20% 0%, rgba(230,150,5,0.10), transparent 60%), radial-gradient(100% 90% at 100% 30%, rgba(113,113,122,0.10), transparent 55%)',
